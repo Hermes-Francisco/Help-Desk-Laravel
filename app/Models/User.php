@@ -58,4 +58,20 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function responsible_for()
+    {
+        return $this->hasMany(Ticket::class, 'responsible_id');
+    }
+
+    public function actions()
+    {
+        return $this->hasMany(Action::class);
+    }
+
 }
