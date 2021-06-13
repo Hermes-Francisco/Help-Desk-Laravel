@@ -23,6 +23,7 @@ class CreateTicketsTable extends Migration
             $table->integer('urgency');
             $table->integer('tendency');
             $table->integer('priority');
+            $table->enum('status', ['to do', 'in progress', 'delayed', 'done']);
             $table->date('due');
             $table->timestamps();
         });

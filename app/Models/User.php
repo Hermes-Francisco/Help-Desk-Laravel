@@ -74,4 +74,14 @@ class User extends Authenticatable
         return $this->hasMany(Action::class);
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function abilities()
+    {
+        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+    }
+
 }
