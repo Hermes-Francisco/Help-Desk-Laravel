@@ -25,13 +25,13 @@ class CreateRolesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ability-role', function (Blueprint $table) {
+        Schema::create('ability_role', function (Blueprint $table) {
             $table->primary(['role_id', 'ability_id']);
             $table->foreignId('role_id')->constrained();
             $table->foreignId('ability_id')->constrained();
         });
 
-        Schema::create('role-user', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->primary(['role_id', 'user_id']);
             $table->foreignId('role_id')->constrained();
             $table->foreignId('user_id')->constrained();

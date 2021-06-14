@@ -9,6 +9,8 @@ class Ability extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);

@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ability;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Role::create([
+            'name' => 'admin'
+        ]);
 
+        $roleUser = Role::create([
+            'name' => 'user'
+        ]);
+
+        $ability = Ability::create([
+            'name' => 'create_ticket'
+        ]);
+
+        $roleUser->abilities()->save($ability);
     }
 }
