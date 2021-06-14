@@ -14,12 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/hello', [Teste::class, 'index']);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/first-register', function() {
+    return view('auth.first-register');
+})->middleware('can:create_user')->name('setup');
 
-Route::get('/hello', [Teste::class, 'index']);
+
