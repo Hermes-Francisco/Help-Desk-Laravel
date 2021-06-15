@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\Teste;
 use Illuminate\Support\Facades\Route;
 
@@ -19,15 +20,20 @@ Route::middleware(['auth'])->group(function () {
         return view('welcome');
     });
 
-    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::middleware(['can:create_user'])->group(function () {
+        Route::get('/invite', [InvitationController::class, 'create'])->name('invitation.create');
+        Route::post('/invite', [InvitationController::class, 'store'])->name('invitation.store');
+    });
 
     Route::get('/hello', [Teste::class, 'index']);
 });
 
 Route::get('/first-register', function() {
-    return view('auth.first-register');
-})->middleware('can:create_user')->name('setup');
+    return view('auth.register');
+})->middleware('can:create_admin')->name('setup');
 
 

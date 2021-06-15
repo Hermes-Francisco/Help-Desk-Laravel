@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        Gate::authorize('create_user');
+        Gate::authorize('create_admin');
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -30,10 +31,16 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        //$user = User::find($user);
+
+        $user->roles()->sync(Role::whereName('admin')->firstOrFail());
+
+        return $user;
     }
 }
