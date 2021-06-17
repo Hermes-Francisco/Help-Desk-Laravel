@@ -6,8 +6,7 @@
 
         <x-jet-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('ticket.update') }}">
-            @method('PUT')
+        <form method="POST" action="{{ route('ticket.store') }}">
             @csrf
 
             <div>
@@ -18,6 +17,11 @@
             <div class="mt-4">
                 <x-jet-label for="description" value="{{ __('Descrição') }}" />
                 <textarea id="description" class="block mt-1 rounded-lg w-full" type="description" name="description" required>{{old('description')}}</textarea>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="due" value="{{ __('Prazo') }}" />
+                <x-jet-input id="due" class="block mt-1 w-full" type="date" name="due" :value="old('due')" autofocus />
             </div>
 
             <div class="flex items-center justify-end mt-4">

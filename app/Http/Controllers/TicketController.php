@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
@@ -20,24 +21,37 @@ class TicketController extends Controller
 
     public function store()
     {
-        $data = request()->validate([
+        $data = $this->rules();
+
+        $data['priority'] = ($data['gravity'] * $data['urgency'] * $data['tendency']);
+        $data['status'] = 'to do';
+
+        request()->user()->tickets()->create($data);
+
+        return redirect(route('dashboard'));
+    }
+
+    public function update(Ticket $ticket)
+    {
+        $data = $this->rules();
+        $data['priority'] = ($data['gravity'] * $data['urgency'] * $data['tendency']);
+
+        $ticket->update($data);
+    }
+
+    public function rules()
+    {
+        if(request('responsible_id'))$this->authorize('edit_responsability');
+
+        return request()->validate([
             'title' => 'required',
             'description' => 'required',
             'gravity' => 'required|numeric|min:1|max:5',
             'urgency' => 'required|numeric|min:1|max:5',
-            'tendency' => 'required|numeric|min:1|max:5'
+            'tendency' => 'required|numeric|min:1|max:5',
+            'responsible_id' => 'nullable|user:exists',
+            'status' => ['nullable', Rule::in(['to do', 'in progress', 'delayed', 'done'])],
+            'due' => 'nullable|date'
         ]);
-
-        request()->user()->tickets()->create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'gravity' => $data['gravity'],
-            'urgency' => $data['urgency'],
-            'tendency' => $data['tendency'],
-            'priority' => ($data['gravity'] * $data['urgency'] * $data['tendency']),
-            'status' => 'to do'
-        ]);
-
-        return redirect(route('dashboard'));
     }
 }
