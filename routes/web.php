@@ -40,7 +40,12 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['can:edit_ticket'])->group(function () {
         Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit']);
         Route::put('/ticket/{ticket}/edit', [TicketController::class, 'put']);
-        Route::delete('/ticket/{ticket}', [TicketController::class, 'destroy']);
+        //Route::delete('/ticket/{ticket}', [TicketController::class, 'destroy']);
+    });
+
+    Route::middleware(['can:create_action'])->group(function () {
+        Route::get('/ticket/{ticket}/create_action');
+        Route::post('/ticket/{ticket}/create_action');
     });
 
     Route::get('/hello', [Teste::class, 'index']);
