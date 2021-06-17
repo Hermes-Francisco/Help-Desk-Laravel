@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\Teste;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,19 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['can:create_user'])->group(function () {
         Route::get('/invite', [InvitationController::class, 'create'])->name('invitation.create');
         Route::post('/invite', [InvitationController::class, 'store'])->name('invitation.store');
+    });
+
+    Route::get('/ticket', [TicketController::class, 'index']);
+
+    Route::middleware(['can:create_ticket'])->group(function () {
+        Route::get('/ticket/create', [TicketController::class, 'create']);
+        Route::post('/ticket', [TicketController::class, 'store']);
+    });
+
+    Route::middleware(['can:edit_ticket'])->group(function () {
+        Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit']);
+        Route::put('/ticket/{ticket}/edit', [TicketController::class, 'put']);
+        Route::delete('/ticket/{ticket}', [TicketController::class, 'destroy']);
     });
 
     Route::get('/hello', [Teste::class, 'index']);
