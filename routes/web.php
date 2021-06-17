@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ticket', [TicketController::class, 'index']);
     Route::get('/ticket/create', [TicketController::class, 'create']);
-    Route::post('/ticket', [TicketController::class, 'store']);
+    Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
 
     Route::middleware(['can:create_user'])->group(function () {
         Route::get('/invite', [InvitationController::class, 'create'])->name('invitation.create');

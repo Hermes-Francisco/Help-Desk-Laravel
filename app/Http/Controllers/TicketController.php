@@ -8,7 +8,7 @@ class TicketController extends Controller
 {
     public function create()
     {
-        return view()
+        return view('tickets.create');
     }
 
     public function store()
