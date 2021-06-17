@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -74,25 +75,25 @@ class User extends Authenticatable
         return $this->hasMany(Action::class);
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function abilities()
     {
-        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+        return $this->role->abilities->flatten()->pluck('name')->unique();
     }
 
     public function isAdmin()
     {
-        return $this->roles()->pluck('name')->contains('admin');
+        return $this->role->name == 'admin';
     }
 
     public function assignRole($role)
     {
         if(is_string($role))$role = Role::whereName($role)->firstOrFail();
-        $this->roles()->sync($role, false);
+        $this->role()->save($role);
     }
 
 }

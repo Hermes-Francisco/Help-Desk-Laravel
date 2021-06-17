@@ -35,11 +35,8 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'role_id' => Role::whereName('admin')->firstOrFail()->id
         ]);
-
-        //$user = User::find($user);
-
-        $user->roles()->sync(Role::whereName('admin')->firstOrFail());
 
         return $user;
     }

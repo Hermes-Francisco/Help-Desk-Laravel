@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class TicketController extends Controller
 {
     public function create()
@@ -21,7 +19,7 @@ class TicketController extends Controller
             'tendency' => 'required|numeric|min:1|max:5'
         ]);
 
-        return auth()->user->tickets->create([
+        request()->user()->tickets()->create([
             'title' => $data['title'],
             'description' => $data['description'],
             'gravity' => $data['gravity'],
@@ -30,5 +28,7 @@ class TicketController extends Controller
             'priority' => ($data['gravity'] * $data['urgency'] * $data['tendency']),
             'status' => 'to do'
         ]);
+
+        return redirect(route('dashboard'));
     }
 }

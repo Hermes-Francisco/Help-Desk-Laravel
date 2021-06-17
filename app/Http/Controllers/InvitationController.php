@@ -37,10 +37,9 @@ class InvitationController extends Controller
             [
                 'name' => $input['name'],
                 'password' => Hash::make(now()->timestamp),
+                'role_id' => $input['role']
             ]
         );
-
-        $user->roles()->sync($input['role']);
 
         $token = app(PasswordBroker::class)->createToken($user);
 

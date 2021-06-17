@@ -20,6 +20,13 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
+                <?php $name = ['gravity', 'urgency', 'tendency']?>
+                <x-gut-dropdown class="flex-1" :name="$name[0]">Gravidade</x-gut-dropdown>
+                <x-gut-dropdown class="flex-1" :name="$name[1]">Urgência</x-gut-dropdown>
+                <x-gut-dropdown class="flex-1" :name="$name[2]">Tendência</x-gut-dropdown>
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">
                     {{ __('Register') }}
                 </x-jet-button>
