@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
+
 class TicketController extends Controller
 {
     public function create()
     {
         return view('tickets.create');
+    }
+
+    public function edit(Ticket $ticket)
+    {
+        return view('tickets.edit', [
+            'ticket' => $ticket
+        ]);
     }
 
     public function store()

@@ -32,8 +32,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['can:edit_ticket'])->group(function () {
-        Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit']);
-        Route::put('/ticket/{ticket}/edit', [TicketController::class, 'put']);
+        Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
+        Route::put('/ticket/{ticket}/edit', [TicketController::class, 'update'])->name('ticket.update');
         //Route::delete('/ticket/{ticket}', [TicketController::class, 'destroy']);
     });
 

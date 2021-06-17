@@ -6,30 +6,29 @@
 
         <x-jet-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('ticket.update') }}">
-            @method('PUT')
+        <form method="POST" action="{{ route('ticket.store') }}">
             @csrf
 
             <div>
                 <x-jet-label for="title" value="{{ __('Título') }}" />
-                <x-jet-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
+                <x-jet-input id="title" class="block mt-1 w-full" type="text" name="title" :value="$ticket->title" required autofocus />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="description" value="{{ __('Descrição') }}" />
-                <textarea id="description" class="block mt-1 rounded-lg w-full" type="description" name="description" required>{{old('description')}}</textarea>
+                <textarea id="description" class="block mt-1 rounded-lg w-full" type="description" name="description" required>{{$ticket->description}}</textarea>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <?php $name = ['gravity', 'urgency', 'tendency']?>
-                <x-gut-dropdown class="flex-1" :name="$name[0]">Gravidade</x-gut-dropdown>
-                <x-gut-dropdown class="flex-1" :name="$name[1]">Urgência</x-gut-dropdown>
-                <x-gut-dropdown class="flex-1" :name="$name[2]">Tendência</x-gut-dropdown>
+                <x-gut-dropdown class="flex-1" :name="$name[0]" :value="$ticket->gravity">Gravidade</x-gut-dropdown>
+                <x-gut-dropdown class="flex-1" :name="$name[1]" :value="$ticket->urgency">Urgência</x-gut-dropdown>
+                <x-gut-dropdown class="flex-1" :name="$name[2]" :value="$ticket->tendency">Tendência</x-gut-dropdown>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">
-                    {{ __('Criar') }}
+                    {{ __('Salvar') }}
                 </x-jet-button>
             </div>
         </form>
