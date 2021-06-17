@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
             $table->string('title');
             $table->foreignId('user_id')->constrained();
             $table->text('description');
-            $table->foreignId('responsible_id')->constrained('users', 'id');
+            $table->foreignId('responsible_id')->constrained('users', 'id')->nullable();
             $table->integer('gravity');
             $table->integer('urgency');
             $table->integer('tendency');
