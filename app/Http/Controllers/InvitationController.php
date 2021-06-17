@@ -26,17 +26,21 @@ class InvitationController extends Controller
     {
         $input = request()->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'role' => ['exists:roles,id', 'required']
         ]);
 
-        $user = User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make(now()->timestamp),
-        ]);
+        $user = User::firstOrCreate(
+            [
+                'email' => $input['email']
+            ],
+            [
+                'name' => $input['name'],
+                'password' => Hash::make(now()->timestamp),
+            ]
+        );
 
-        $user->roles()->sync($input['role'], false);
+        $user->roles()->sync($input['role']);
 
         $token = app(PasswordBroker::class)->createToken($user);
 
@@ -48,6 +52,6 @@ class InvitationController extends Controller
 
         Notification::send($user, new Invite($token, $user));
 
-        return back();
+        return back()->with('status', 'Link de acesso enviado');
     }
 }

@@ -32,10 +32,9 @@ class AuthServiceProvider extends ServiceProvider
             }
 
             if($user){
-                if($user->isAdmin()) return true;
-                return $user->abilities()->contains($ability);
+                if($user->isAdmin() || $user->abilities()->contains($ability))
+                return true;
             }
-
         });
     }
 }
