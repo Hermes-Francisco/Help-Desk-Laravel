@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Role::create([
+        $admin = Role::create([
             'name' => 'admin'
         ]);
 
@@ -54,5 +54,6 @@ class DatabaseSeeder extends Seeder
         //createAction
         $support->abilities()->save($createAction);
         $manager->abilities()->save($createAction);
+        $admin->abilities()->save($createAction);
     }
 }

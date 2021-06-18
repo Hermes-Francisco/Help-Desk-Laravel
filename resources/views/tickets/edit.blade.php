@@ -35,6 +35,21 @@
                 </div>
             </div>
 
+            @if (isset($ticket->responsible)|| request()->user()->abilities()->contains('edit_responsibility'))
+                <div class="mt-4">
+                    <x-jet-label for="gut" value="{{ __('Usuário Responsável') }}" />
+                    <div class="flex items-center justify-end mt-2">
+                        @can('edit_responsibility')
+                            <x-user-dropdown class="flex-1" >
+                                {{isset($ticket->responsible)? $ticket->responsible->id.' - '.$ticket->responsible->name : ''}}
+                            </x-user-dropdown>
+                        @else
+                            <h4 class="flex-1 ml-4">{{isset($ticket->responsible)? $ticket->responsible->name : ''}}</h4>
+                        @endcan
+                    </div>
+                </div>
+            @endif
+
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">
                     {{ __('Salvar') }}

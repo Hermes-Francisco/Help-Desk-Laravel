@@ -23,6 +23,11 @@ class TicketController extends Controller
     {
         $data = $this->rules();
 
+        if(request('responsible')){
+            $this->authorize('edit_responsability');
+            $data['responsible_id'] = (int)explode(" - ", request('responsible'))[0];
+        }
+
         $data['priority'] = ($data['gravity'] * $data['urgency'] * $data['tendency']);
         $data['status'] = 'to do';
 
@@ -34,6 +39,12 @@ class TicketController extends Controller
     public function update(Ticket $ticket)
     {
         $data = $this->rules();
+
+        if(request('responsible')){
+            $this->authorize('edit_responsability');
+            $data['responsible_id'] = (int)explode(" - ", request('responsible'))[0];
+        }
+
         $data['priority'] = ($data['gravity'] * $data['urgency'] * $data['tendency']);
 
         $ticket->update($data);
@@ -41,15 +52,12 @@ class TicketController extends Controller
 
     public function rules()
     {
-        if(request('responsible_id'))$this->authorize('edit_responsability');
-
         return request()->validate([
             'title' => 'required',
             'description' => 'required',
             'gravity' => 'required|numeric|min:1|max:5',
             'urgency' => 'required|numeric|min:1|max:5',
             'tendency' => 'required|numeric|min:1|max:5',
-            'responsible_id' => 'nullable|user:exists',
             'status' => ['nullable', Rule::in(['to do', 'in progress', 'delayed', 'done'])],
             'due' => 'nullable|date'
         ]);

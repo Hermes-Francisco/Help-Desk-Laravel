@@ -15,6 +15,8 @@ class Ticket extends Model
         'created_at'
     ];
 
+    protected $with = ['responsible', 'actions'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -11,7 +11,7 @@ class Ability extends Model
 
     protected $fillable = ['name'];
 
-    public function role()
+    public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
