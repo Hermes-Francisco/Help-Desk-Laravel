@@ -45,7 +45,7 @@
                         <div class="w-full items-center justify-end mt-2">
                             @can('edit_responsibility')
                                 <x-user-dropdown class="w-full">
-                                    {{isset($ticket->responsible)? $ticket->responsible->id.' - '.$ticket->responsible->name : ''}}
+                                    {{isset($ticket->responsible)? $ticket->responsible->name : ''}}
                                 </x-user-dropdown>
                             @else
                                 <h4 class="ml-4 w-full">{{isset($ticket->responsible)? $ticket->responsible->name : ''}}</h4>
