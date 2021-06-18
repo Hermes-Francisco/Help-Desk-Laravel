@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'edit_ticket'
         ]);
 
-        $editResponsability = Ability::create([
-            'name' => 'edit_responsability'
+        $editResponsibility = Ability::create([
+            'name' => 'edit_responsibility'
         ]);
 
         $createAction = Ability::create([
@@ -48,8 +48,8 @@ class DatabaseSeeder extends Seeder
         $support->abilities()->save($editTicket);
         $manager->abilities()->save($editTicket);
 
-        //editResponsability
-        $manager->abilities()->save($editResponsability);
+        //editresponsibility
+        $manager->abilities()->save($editResponsibility);
 
         //createAction
         $support->abilities()->save($createAction);

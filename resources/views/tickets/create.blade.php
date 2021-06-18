@@ -31,6 +31,15 @@
                 <x-gut-dropdown class="flex-1" :name="$name[2]">Tendência</x-gut-dropdown>
             </div>
 
+            @can('edit_responsibility')
+                <div class="mt-4">
+                    <x-jet-label for="gut" value="{{ __('Usuário Responsável') }}" />
+                    <div class="flex items-center justify-end mt-2">
+                        <x-user-dropdown class="flex-1" />
+                    </div>
+                </div>
+            @endcan
+
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">
                     {{ __('Criar') }}

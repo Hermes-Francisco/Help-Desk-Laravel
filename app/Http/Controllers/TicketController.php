@@ -24,7 +24,7 @@ class TicketController extends Controller
         $data = $this->rules();
 
         if(request('responsible')){
-            $this->authorize('edit_responsability');
+            $this->authorize('edit_responsibility');
             $data['responsible_id'] = (int)explode(" - ", request('responsible'))[0];
         }
 
@@ -41,7 +41,7 @@ class TicketController extends Controller
         $data = $this->rules();
 
         if(request('responsible')){
-            $this->authorize('edit_responsability');
+            $this->authorize('edit_responsibility');
             $data['responsible_id'] = (int)explode(" - ", request('responsible'))[0];
         }
 
