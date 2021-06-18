@@ -24,11 +24,14 @@
                 <x-jet-input id="due" class="block mt-1 w-full" type="date" name="due" :value="old('due')" autofocus />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <?php $name = ['gravity', 'urgency', 'tendency']?>
-                <x-gut-dropdown class="flex-1" :name="$name[0]">Gravidade</x-gut-dropdown>
-                <x-gut-dropdown class="flex-1" :name="$name[1]">Urgência</x-gut-dropdown>
-                <x-gut-dropdown class="flex-1" :name="$name[2]">Tendência</x-gut-dropdown>
+            <div class="mt-4">
+                <x-jet-label for="gut" value="{{ __('Gravidade, Urgência e Tendência') }}" />
+                <div class="flex items-center justify-end mt-2">
+                    <?php $name = ['gravity', 'urgency', 'tendency']?>
+                    <x-gut-dropdown class="flex-1" :name="$name[0]">Gravidade</x-gut-dropdown>
+                    <x-gut-dropdown class="flex-1" :name="$name[1]">Urgência</x-gut-dropdown>
+                    <x-gut-dropdown class="flex-1" :name="$name[2]">Tendência</x-gut-dropdown>
+                </div>
             </div>
 
             @can('edit_responsibility')

@@ -34,21 +34,26 @@
                     <x-gut-dropdown class="flex-1" :name="$name[2]" :value="$ticket->tendency">Tendência</x-gut-dropdown>
                 </div>
             </div>
-
-            @if (isset($ticket->responsible)|| request()->user()->abilities()->contains('edit_responsibility'))
-                <div class="mt-4">
-                    <x-jet-label for="gut" value="{{ __('Usuário Responsável') }}" />
-                    <div class="flex items-center justify-end mt-2">
-                        @can('edit_responsibility')
-                            <x-user-dropdown class="flex-1" >
-                                {{isset($ticket->responsible)? $ticket->responsible->id.' - '.$ticket->responsible->name : ''}}
-                            </x-user-dropdown>
-                        @else
-                            <h4 class="flex-1 ml-4">{{isset($ticket->responsible)? $ticket->responsible->name : ''}}</h4>
-                        @endcan
-                    </div>
+            <div class="flex items-center justify-end mt-4">
+                <div class="flex-1">
+                    <x-jet-label value="{{ __('Status') }}" />
+                    <x-status-dropdown :value="$ticket->status" class="mt-2"/>
                 </div>
-            @endif
+                @if (isset($ticket->responsible)|| request()->user()->capable('edit_responsibility'))
+                    <div class="flex-1 ml-2">
+                        <x-jet-label for="responsible" value="{{ __('Usuário Responsável') }}" />
+                        <div class="w-full items-center justify-end mt-2">
+                            @can('edit_responsibility')
+                                <x-user-dropdown class="w-full">
+                                    {{isset($ticket->responsible)? $ticket->responsible->id.' - '.$ticket->responsible->name : ''}}
+                                </x-user-dropdown>
+                            @else
+                                <h4 class="ml-4 w-full">{{isset($ticket->responsible)? $ticket->responsible->name : ''}}</h4>
+                            @endcan
+                        </div>
+                    </div>
+                @endif
+            </div>
 
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">

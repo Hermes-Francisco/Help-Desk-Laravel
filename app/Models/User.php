@@ -96,4 +96,10 @@ class User extends Authenticatable
         $this->role()->save($role);
     }
 
+    public function Capable($ability)
+    {
+        if($this->isAdmin())return true;
+        return $this->abilities()->contains($ability);
+    }
+
 }
