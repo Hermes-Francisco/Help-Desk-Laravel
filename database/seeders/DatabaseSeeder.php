@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         $support->abilities()->save($editTicket);
         $manager->abilities()->save($editTicket);
 
-        //editresponsibility
+        //editResponsibility
         $manager->abilities()->save($editResponsibility);
 
         //createAction
