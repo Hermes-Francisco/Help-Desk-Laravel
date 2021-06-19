@@ -1,10 +1,11 @@
    /*
-    Login
-    cadastro --só admin
-    cad. chamados
-    edição de chamados --só admin
-    tela de ações
-    ver chamados
-    ver detalhes dos chamados
-    lista de usuários --só admin
+falta as telas
+
+listar todos tickets - talvez Alexander
+
+criar / ver ações
+
+ver ticket individual - Alexander
+
+listar / editar usuários - Hermes
     */

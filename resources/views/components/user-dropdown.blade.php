@@ -4,7 +4,7 @@
     >
     <datalist id="user">
         @foreach ($users as $user)
-            <option value="{{ $user->id }} - {{ $user->name }}"></option>
+            <option value="{{ $user->id }} - {{ $user->name }}">dssd</option>
         @endforeach
     </datalist>
 </div>
