@@ -1,7 +1,7 @@
    /*
 falta as telas
 
-listar todos tickets - talvez Alexander
+listar todos tickets - Yuri
 
 criar / ver ações
 
