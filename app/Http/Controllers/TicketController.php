@@ -52,6 +52,8 @@ class TicketController extends Controller
 
     public function rules()
     {
+        if(request('due'))$this->authorize('edit_ticket');
+
         return request()->validate([
             'title' => 'required',
             'description' => 'required',
