@@ -1,8 +1,8 @@
 <?php
 
 if (! function_exists('date_br')) {
-    function date_br(string $date): string
+    function date_br(?string $date): string
     {
-        return implode('/', array_reverse(explode('-', $date)));
+        return (is_null($date))? 'Sem prazo definido' : implode('/', array_reverse(explode('-', $date)));
     }
 }

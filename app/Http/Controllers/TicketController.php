@@ -37,9 +37,11 @@ class TicketController extends Controller
         $data['priority'] = ($data['gravity'] * $data['urgency'] * $data['tendency']);
         $data['status'] = 'to do';
 
-        request()->user()->tickets()->create($data);
+        $ticket = request()->user()->tickets()->create($data);
 
-        return redirect(route('dashboard'));
+        return redirect()
+        ->route('ticket.show', $ticket)
+        ->with(['success' => 'Chamado criado com sucesso!']);
     }
 
     public function update(Ticket $ticket)
@@ -57,7 +59,7 @@ class TicketController extends Controller
 
         return redirect()
             ->route('ticket.show', $ticket)
-            ->with(['success' => 'Ticket editado com sucesso!']);
+            ->with(['success' => 'Chamado editado com sucesso!']);
     }
 
     public function rules()

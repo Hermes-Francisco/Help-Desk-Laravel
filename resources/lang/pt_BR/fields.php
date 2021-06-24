@@ -2,8 +2,8 @@
 
 return [
     'ticket' => [
-        'information' => 'Informações do ticket',
-        'details' => 'Aqui estão sendo listados os dados do ticket criado.',
+        'information' => 'Informações do chamado',
+        'details' => 'Aqui estão sendo listados os dados do chamado criado.',
         'title' => 'Título',
         'due' => 'Prazo',
         'description' => 'Descrição',
