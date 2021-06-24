@@ -19,12 +19,12 @@
 
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$user->name" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$user->email" required />
             </div>
 
             <div class="flex items-center mt-8 mb-4">
@@ -34,5 +34,35 @@
                 </x-jet-button>
             </div>
         </form>
+        <hr>
+        <div class="w-full text-center" id="opcoes"><a href="#" id="opcao">mais opções</a></div>
+        <div id="mais" style="display: none">
+            <form method="POST" action="{{ route('password.email') }}">
+                @csrf
+                <x-jet-button class="text-center w-full">
+                    {{ __('Enviar email de recuperação') }}
+                </x-jet-button>
+            </form>
+
+            <x-jet-button class="text-center w-full" id="question_delete">
+                {{ __('Deletar') }}
+            </x-jet-button>
+
+            <div id="confirm" style="display: none">
+                <form method="POST" action="{{ route('users.delete', $user) }}">
+                    @csrf
+                    @method('Delete')
+                    <x-jet-button class="text-center w-full bg-red-500">
+                        {{ __('SIM') }}
+                    </x-jet-button>
+                </form>
+
+                <x-jet-button class="text-center w-full bg-green-500">
+                    {{ __('NÃO') }}
+                </x-jet-button>
+
+            </div>
+        </div>
+        <script src="/js/edit_user.js"></script>
     </x-jet-authentication-card>
 </x-app-layout>

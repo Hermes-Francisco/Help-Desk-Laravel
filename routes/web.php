@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invite', [InvitationController::class, 'store'])->name('invitation.store');
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::get('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete');
     });
 
     Route::get('/ticket/{ticket}/', [TicketController::class, 'show'])
