@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class TicketController extends Controller
 {
+    public function show(Ticket $ticket): View
+    {
+        return view('tickets.show', ['ticket' => $ticket]);
+    }
+
     public function create()
     {
         return view('tickets.create');
@@ -48,6 +54,10 @@ class TicketController extends Controller
         $data['priority'] = ($data['gravity'] * $data['urgency'] * $data['tendency']);
 
         $ticket->update($data);
+
+        return redirect()
+            ->route('ticket.show', $ticket)
+            ->with(['success' => 'Ticket editado com sucesso!']);
     }
 
     public function rules()

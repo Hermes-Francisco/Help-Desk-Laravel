@@ -31,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invite', [InvitationController::class, 'store'])->name('invitation.store');
     });
 
+    Route::get('/ticket/{ticket}/', [TicketController::class, 'show'])->name('ticket.show');
+
     Route::middleware(['can:edit_ticket'])->group(function () {
         Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
         Route::put('/ticket/{ticket}/edit', [TicketController::class, 'update'])->name('ticket.update');
