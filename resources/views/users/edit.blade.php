@@ -15,6 +15,7 @@
 
         <form method="POST" action="{{ route('invitation.store') }}">
             @csrf
+            @method('PUT')
 
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
@@ -27,9 +28,9 @@
             </div>
 
             <div class="flex items-center mt-8 mb-4">
-                <x-role-dropdown :roles="$roles" class="flex-1" />
+                <x-role-dropdown :roles="$roles" :select="$user->role->id" class="flex-1" />
                 <x-jet-button class="ml-4 text-center">
-                    {{ __('Cadastrar') }}
+                    {{ __('Salvar') }}
                 </x-jet-button>
             </div>
         </form>

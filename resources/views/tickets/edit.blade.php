@@ -1,4 +1,5 @@
 <x-app-layout>
+    <div class="w-full h-1 shadow"></div>
     <x-jet-authentication-card>
         <x-slot name="logo">
 

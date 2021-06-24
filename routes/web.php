@@ -24,13 +24,14 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::get('/ticket', [TicketController::class, 'index']);
-    Route::get('/ticket/create', [TicketController::class, 'create']);
+    Route::get('/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
     Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
 
     Route::middleware(['can:create_user'])->group(function () {
         Route::get('/invite', [InvitationController::class, 'create'])->name('invitation.create');
         Route::post('/invite', [InvitationController::class, 'store'])->name('invitation.store');
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     });
 
     Route::middleware(['can:edit_ticket'])->group(function () {
