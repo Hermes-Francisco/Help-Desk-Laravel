@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function($user=null, $ability){
+        Gate::before(function($user, $ability){
             if($ability === 'create_admin'){
                 if(User::count() === 0)return true;
             }
