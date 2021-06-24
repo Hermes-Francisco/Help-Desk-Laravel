@@ -20,16 +20,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin'
         ]);
 
-        $user = Role::create([
-            'name' => 'user'
-        ]);
-
         $manager = Role::create([
             'name' => 'manager'
         ]);
 
         $support = Role::create([
             'name' => 'support'
+        ]);
+
+        $user = Role::create([
+            'name' => 'user'
         ]);
 
         $editTicket = Ability::create([
