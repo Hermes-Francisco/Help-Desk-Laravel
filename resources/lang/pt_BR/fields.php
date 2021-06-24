@@ -10,6 +10,7 @@ return [
         'gravity' => 'Gravidade',
         'urgency' => 'Urgência',
         'tendency' => 'Tendência',
+        'author' => 'Autor',
     ],
 
     'buttons' => [
