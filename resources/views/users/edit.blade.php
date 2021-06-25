@@ -37,9 +37,9 @@
         <hr>
         <div class="w-full text-center" id="opcoes"><a href="#" id="opcao">mais opções</a></div>
         <div id="mais" style="display: none">
-            <form method="POST" id="recuperacao" action="{{ route('password.email') }}">
+            <form method="POST" id="recuperacao" action="{{ route('users.recover', $user) }}">
                 @csrf
-                <input type="hidden" name="email" value="{{ $user->email }}">
+                @method('PUT')
                 <x-jet-button class="text-center mt-4 w-full">
                     {{ __('Enviar email de recuperação') }}
                 </x-jet-button>

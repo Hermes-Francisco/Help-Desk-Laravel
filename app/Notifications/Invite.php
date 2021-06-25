@@ -45,7 +45,7 @@ class Invite extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting('Olá!')
+                    ->greeting('Olá, '.$notifiable->name.'!')
                     ->subject('Link de acesso do JavaLi Help-Desk')
                     ->line('Bem vindo(a) ao time')
                     ->line('Aqui está seu link de acesso ao nosso sistema')

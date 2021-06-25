@@ -26,15 +26,13 @@ class InvitationController extends Controller
     {
         $input = request()->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'role' => ['exists:roles,id', 'required']
         ]);
 
-        $user = User::firstOrCreate(
+        $user = User::create(
             [
-                'email' => $input['email']
-            ],
-            [
+                'email' => $input['email'],
                 'name' => $input['name'],
                 'password' => Hash::make(now()->timestamp),
                 'role_id' => $input['role']
