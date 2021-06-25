@@ -90,11 +90,6 @@ class User extends Authenticatable
         return $this->role->name == 'admin';
     }
 
-    public function isSingleAdmin()
-    {
-        return $this->isAdmin() && User::where('role_id', 1)->count() > 1;
-    }
-
     public function assignRole($role)
     {
         if(is_string($role))$role = Role::whereName($role)->firstOrFail();
