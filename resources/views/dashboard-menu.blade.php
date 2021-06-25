@@ -3,30 +3,73 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('ticket.create') }}" :active="request()->routeIs('ticket.create')">
-                        {{ __('Criar chamado') }}
-                    </x-jet-nav-link>
-                </div>
-                @can('create_users')
+                @can('edit_responsibility')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
-                            {{ __('Lista de usuários') }}
-                        </x-jet-nav-link>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('invitation.create') }}" :active="request()->routeIs('invitation.create')">
-                            {{ __('Cadastrar usuário') }}
+                        <x-jet-nav-link
+                            href="/?responsible=none"
+                            :active="request()->query('responsible') == 'none'"
+                            >
+                            {{ __('Sem responsável') }}
                         </x-jet-nav-link>
                     </div>
                 @endcan
+                @can('create_action')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link
+                            href="/?responsible={{request()->user()->id}}"
+                            :active="request()->query('responsible') == request()->user()->id"
+                            >
+                            {{ __('Recebidos') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endcan
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link
+                        href="/?author={{request()->user()->id}}"
+                        :active="request()->query('author') == request()->user()->id"
+                        >
+                        {{ __('Criados por mim') }}
+                    </x-jet-nav-link>
+                </div>
+
+                <h3 class="mt-5 font-bold ml-10 mr-7">Status:</h3>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link
+                        href="/?status=to do&{{ http_build_query(request()->except(['status', 'page'])) }}"
+                        :active="request()->query('status') == 'to do'"
+                        >
+                        {{ __('A fazer') }}
+                    </x-jet-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link
+                        href="/?status=in progress&{{ http_build_query(request()->except(['status', 'page'])) }}"
+                        :active="request()->query('status') == 'in progress'"
+                        >
+                        {{ __('Em progresso') }}
+                    </x-jet-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link
+                        href="/?status=delayed&{{ http_build_query(request()->except(['status', 'page'])) }}"
+                        :active="request()->query('status') == 'delayed'"
+                        >
+                        {{ __('Atrazados') }}
+                    </x-jet-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link
+                        href="/?status=done&{{ http_build_query(request()->except(['status', 'page'])) }}"
+                        :active="request()->query('status') == 'done'"
+                        >
+                        {{ __('Concluídos') }}
+                    </x-jet-nav-link>
+                </div>
             </div>
         </div>
     </div>
