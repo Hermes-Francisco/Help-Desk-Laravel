@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
-use App\Notifications\Invite;
+use App\Notifications\PasswordRecovery;
 use Illuminate\Auth\Passwords\PasswordBroker;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
@@ -51,7 +50,7 @@ class UserController extends Controller
     {
         $token = app(PasswordBroker::class)->createToken($user);
 
-        Notification::send($user, new Invite($token, $user));
+        Notification::send($user, new PasswordRecovery($token));
 
         return back()->with('status', 'Email de recuperação enviado com sucesso');
     }
