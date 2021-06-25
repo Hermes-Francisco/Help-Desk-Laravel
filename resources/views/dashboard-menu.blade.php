@@ -16,7 +16,7 @@
                 @can('edit_responsibility')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link
-                            href="/?responsible=none&{{ http_build_query(request()->except(['all','author', 'responsible', 'page'])) }}"
+                            href="/?responsible=none&{{ http_build_query(request()->except(['todas','author', 'responsible', 'page'])) }}"
                             :active="request()->query('responsible') == 'none'"
                             >
                             {{ __('Sem responsável') }}
@@ -26,7 +26,7 @@
                 @can('create_action')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link
-                            href="/?responsible={{request()->user()->id}}&{{ http_build_query(request()->except(['all','author', 'responsible', 'page'])) }}"
+                            href="/?responsible={{request()->user()->id}}&{{ http_build_query(request()->except(['todas','author', 'responsible', 'page'])) }}"
                             :active="request()->query('responsible') == request()->user()->id"
                             >
                             {{ __('Recebidos') }}
@@ -36,7 +36,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link
-                        href="/?author={{request()->user()->id}}&{{ http_build_query(request()->except(['all','author', 'responsible', 'page'])) }}"
+                        href="/?author={{request()->user()->id}}&{{ http_build_query(request()->except(['todas','author', 'responsible', 'page'])) }}"
                         :active="request()->query('author') == request()->user()->id"
                         >
                         {{ __('Criados por mim') }}
@@ -50,7 +50,7 @@
                         href="/?status=todos&{{ http_build_query(request()->except(['status', 'page'])) }}"
                         :active="request()->query('status') == 'todos'"
                         >
-                        {{ __('todos') }}
+                        {{ __('Todos') }}
                     </x-jet-nav-link>
                 </div>
 
