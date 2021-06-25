@@ -3,10 +3,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
+                @can('create_action')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link
+                            href="/?todas=1&{{ http_build_query(request()->except(['author', 'responsible', 'page'])) }}"
+                            :active="request()->query('todas') == 1"
+                            >
+                            {{ __('Todas') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endcan
                 @can('edit_responsibility')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link
-                            href="/?responsible=none&{{ http_build_query(request()->except(['author', 'responsible', 'page'])) }}"
+                            href="/?responsible=none&{{ http_build_query(request()->except(['all','author', 'responsible', 'page'])) }}"
                             :active="request()->query('responsible') == 'none'"
                             >
                             {{ __('Sem responsável') }}
@@ -16,7 +26,7 @@
                 @can('create_action')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link
-                            href="/?responsible={{request()->user()->id}}&{{ http_build_query(request()->except(['author', 'responsible', 'page'])) }}"
+                            href="/?responsible={{request()->user()->id}}&{{ http_build_query(request()->except(['all','author', 'responsible', 'page'])) }}"
                             :active="request()->query('responsible') == request()->user()->id"
                             >
                             {{ __('Recebidos') }}
@@ -26,7 +36,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link
-                        href="/?author={{request()->user()->id}}&{{ http_build_query(request()->except(['author', 'responsible', 'page'])) }}"
+                        href="/?author={{request()->user()->id}}&{{ http_build_query(request()->except(['all','author', 'responsible', 'page'])) }}"
                         :active="request()->query('author') == request()->user()->id"
                         >
                         {{ __('Criados por mim') }}
@@ -34,6 +44,15 @@
                 </div>
 
                 <h3 class="mt-5 font-bold ml-10">Status:</h3>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link
+                        href="/?status=todos&{{ http_build_query(request()->except(['status', 'page'])) }}"
+                        :active="request()->query('status') == 'todos'"
+                        >
+                        {{ __('todos') }}
+                    </x-jet-nav-link>
+                </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link

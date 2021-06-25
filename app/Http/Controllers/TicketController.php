@@ -8,8 +8,29 @@ use Illuminate\View\View;
 
 class TicketController extends Controller
 {
-    public function index(): View
+    public function index()
     {
+        $user = request()->user();
+        $role = $user->role->name;
+        $query = request()->query();
+        if($role == 'user'){
+            if(! isset($query['author']) || request()->query('author') != $user->id)
+                return redirect('/?author='.$user->id);
+        }
+        if($role == 'support'){
+            if(! isset($query['todas']) && ! isset($query['responsible']) && ! isset($query['author']))
+                return redirect('/?responsible='.$user->id);
+        }
+
+        if($role == 'manager' || $role == 'admin'){
+            if(! isset($query['todas']) && ! isset($query['responsible']) && ! isset($query['author']))
+                return redirect('/?responsible=none');
+        }
+
+        if(!isset($query['status'])){
+            return redirect('/?status=to do&'.http_build_query(request()->except(['status', 'page'])));
+        }
+
         return view('tickets.index', [
             'tickets' => Ticket::orderBy('priority', 'desc')
                 ->orderBy('due')
@@ -90,5 +111,9 @@ class TicketController extends Controller
             'status' => ['nullable', Rule::in(['to do', 'in progress', 'delayed', 'done'])],
             'due' => 'nullable|date'
         ]);
+    }
+
+    private function rulesUser($query){
+
     }
 }

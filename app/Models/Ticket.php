@@ -34,11 +34,13 @@ class Ticket extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['status'] ?? false, fn($query, $status) =>
-            $query->where(fn($query)=>
-                $query->where('status', $status)
-            )
-        );
+        if($filters['status'] != 'todos'){
+            $query->when($filters['status'] ?? false, fn($query, $status) =>
+                $query->where(fn($query)=>
+                    $query->where('status', $status)
+                )
+            );
+        }
 
         $query->when($filters['responsible'] ?? false, fn($query, $responsible) =>
             $query->where(function() use($query, $responsible) {
