@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     Route::get('/ticket', [TicketController::class, 'index']);
     Route::get('/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
     Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
@@ -39,6 +35,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ticket/{ticket}/', [TicketController::class, 'show'])
         ->name('ticket.show');
+
+        Route::get('/', [TicketController::class, 'index'])
+        ->name('dashboard');;
 
     Route::middleware(['can:edit_ticket'])->group(function () {
         Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');

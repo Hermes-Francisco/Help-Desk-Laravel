@@ -8,6 +8,20 @@ use Illuminate\View\View;
 
 class TicketController extends Controller
 {
+    public function index(): View
+    {
+        return view('tickets.index', [
+            'tickets' => Ticket::orderBy('priority', 'desc')
+                ->orderBy('due')
+                ->orderBy('created_at')
+                ->filter(
+                    request()->query()
+                )
+                ->paginate(1)
+                ->withQueryString()
+        ]);
+    }
+
     public function show(Ticket $ticket): View
     {
         $this->authorize('view', $ticket);
