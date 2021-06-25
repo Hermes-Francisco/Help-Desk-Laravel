@@ -17,7 +17,7 @@ class TicketController extends Controller
                 ->filter(
                     request()->query()
                 )
-                ->paginate(1)
+                ->paginate(10)
                 ->withQueryString()
         ]);
     }
