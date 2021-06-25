@@ -16,9 +16,9 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable();
             $table->text('description');
-            $table->foreignId('responsible_id')->nullable()->constrained('users', 'id')->nullable();
+            $table->foreignId('responsible_id')->nullable();
             $table->integer('gravity');
             $table->integer('urgency');
             $table->integer('tendency');
@@ -26,6 +26,9 @@ class CreateTicketsTable extends Migration
             $table->enum('status', ['to do', 'in progress', 'delayed', 'done']);
             $table->date('due')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('responsible_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
