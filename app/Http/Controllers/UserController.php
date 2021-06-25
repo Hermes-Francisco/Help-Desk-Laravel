@@ -21,6 +21,9 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        if($user->is(request()->user))
+            return redirect(route('profile.show'));
+
         return view('users.edit', [
             'user' => $user,
             'roles' => Role::all()
@@ -29,6 +32,9 @@ class UserController extends Controller
 
     public function update(User $user)
     {
+        if($user->is(request()->user))
+            return redirect(route('profile.show'));
+
         $input = request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
