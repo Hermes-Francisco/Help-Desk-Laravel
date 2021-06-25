@@ -76,6 +76,6 @@ class UserController extends Controller
         $user->destroy($user->id);
 
         return redirect(route('users.index'))
-            ->with('success', 'O usuário '.$user->name.' foi deletado com sucesso');
+            ->with('success', 'A conta de '.$user->name.' foi deletada com sucesso');
     }
 }

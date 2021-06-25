@@ -34,7 +34,7 @@
                 </x-jet-button>
             </div>
         </form>
-        <hr>
+        <hr class="mb-2">
         <div class="w-full text-center" id="opcoes"><a href="#" id="opcao">mais opções</a></div>
         <div id="mais" style="display: none">
             <form method="POST" id="recuperacao" action="{{ route('users.recover', $user) }}">
@@ -64,7 +64,7 @@
                 </x-jet-button>
 
             </div>
-            <hr class="mt-4">
+            <hr class="mt-4 mb-2">
             <div class="w-full text-center"><a href="#" id="fechar">ocultar</a></div>
         </div>
         <script src="/js/edit_user.js"></script>
