@@ -43,7 +43,8 @@ class UserController extends Controller
             ]
         );
 
-        return back()->with('status', 'Os dados do usuário foram atualizados');
+        return redirect(route('users.index'))
+            ->with('success', 'Os dados de '.$input['name'].' foram atualizados');
     }
 
     public function recover(User $user)
@@ -53,5 +54,28 @@ class UserController extends Controller
         Notification::send($user, new PasswordRecovery($token));
 
         return back()->with('status', 'Email de recuperação enviado com sucesso');
+    }
+
+    public function forgot()
+    {
+        $input = request()->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
+        ]);
+
+        $user = User::where('email', $input['email'])->first();
+
+        $token = app(PasswordBroker::class)->createToken($user);
+
+        Notification::send($user, new PasswordRecovery($token));
+
+        return back()->with('status', 'Email de recuperação enviado com sucesso');
+    }
+
+    public function delete(User $user)
+    {
+        $user->destroy($user->id);
+
+        return redirect(route('users.index'))
+            ->with('success', 'O usuário '.$user->name.' foi deletado com sucesso');
     }
 }

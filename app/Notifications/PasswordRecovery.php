@@ -46,8 +46,10 @@ class PasswordRecovery extends Notification
         return (new MailMessage)
                 ->greeting('Olá, '.$notifiable->name.'!')
                 ->subject('Link de Recuperação de Senha')
-                ->line('Aqui está o link de recuperação de sua conta')
+                ->line('Enviamos esse email porque recebemos um pedido de recuperação de senha para sua conta')
                 ->action('Recuperar Senha', url('/reset-password/'. $this->token . '?email='.$notifiable->email))
+                ->line('Esse link irá expirar em 60 minutos')
+                ->line('Se você não precisa recuperar sua senha, pode ignorar esse email')
                 ->salutation('Até mais');
     }
 

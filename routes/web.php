@@ -58,4 +58,6 @@ Route::get('/first-register', function() {
     return view('auth.register');
 })->middleware('can:create_admin')->name('setup');
 
+Route::post('/users/forgot', [UserController::class, 'forgot'])->name('users.forgot');
+
 
