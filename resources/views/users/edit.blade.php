@@ -13,7 +13,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('invitation.store') }}">
+        <form method="POST" action="{{ route('users.update', $user) }}">
             @csrf
             @method('PUT')
 
@@ -29,7 +29,7 @@
 
             <div class="flex items-center mt-8 mb-4">
                 <x-role-dropdown :roles="$roles" :select="$user->role->id" class="flex-1" />
-                <x-jet-button class="ml-4 text-center">
+                <x-jet-button class="ml-4 text-center bg-blue-700">
                     {{ __('Salvar') }}
                 </x-jet-button>
             </div>
@@ -37,31 +37,35 @@
         <hr>
         <div class="w-full text-center" id="opcoes"><a href="#" id="opcao">mais opções</a></div>
         <div id="mais" style="display: none">
-            <form method="POST" action="{{ route('password.email') }}">
+            <form method="POST" id="recuperacao" action="{{ route('password.email') }}">
                 @csrf
-                <x-jet-button class="text-center w-full">
+                <input type="hidden" name="email" value="{{ $user->email }}">
+                <x-jet-button class="text-center mt-4 w-full">
                     {{ __('Enviar email de recuperação') }}
                 </x-jet-button>
             </form>
 
-            <x-jet-button class="text-center w-full" id="question_delete">
+            <x-jet-button class="text-center mt-2 w-full hover:bg-red-300 bg-red-700" id="question_delete">
                 {{ __('Deletar') }}
             </x-jet-button>
 
-            <div id="confirm" style="display: none">
+            <div id="confirm" style="display: none" class="mt-2">
+                <h3>Deseja mesmo deletar esse usuário?</h3>
                 <form method="POST" action="{{ route('users.delete', $user) }}">
                     @csrf
                     @method('Delete')
-                    <x-jet-button class="text-center w-full bg-red-500">
+                    <x-jet-button class="text-center mt-4 w-full hover:bg-red-500 bg-red-700">
                         {{ __('SIM') }}
                     </x-jet-button>
                 </form>
 
-                <x-jet-button class="text-center w-full bg-green-500">
+                <x-jet-button id="nao" class="mt-2 text-center w-full hover:bg-green-500 bg-green-700">
                     {{ __('NÃO') }}
                 </x-jet-button>
 
             </div>
+            <hr class="mt-4">
+            <div class="w-full text-center"><a href="#" id="fechar">ocultar</a></div>
         </div>
         <script src="/js/edit_user.js"></script>
     </x-jet-authentication-card>

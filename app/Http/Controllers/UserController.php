@@ -24,4 +24,32 @@ class UserController extends Controller
             'roles' => Role::all()
         ]);
     }
+
+    public function update(User $user)
+    {
+        $input = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'role' => ['exists:roles,id', 'required']
+        ]);
+
+        $user->update(
+            [
+                'email' => $input['email'],
+                'name' => $input['name'],
+                'role_id' => $input['role']
+            ]
+        );
+
+        //$token = app(PasswordBroker::class)->createToken($user);
+
+        //Notification::send($user, new Invite($token, $user));
+
+        return back()->with('status', 'Os dados do usuário foram atualizados');
+    }
+
+    public function recover(User $user)
+    {
+
+    }
 }
